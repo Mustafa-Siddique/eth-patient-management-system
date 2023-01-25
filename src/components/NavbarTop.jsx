@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Web3 from "web3";
 import { addWallet, selectWallet } from "../features/walletSlice";
 
@@ -88,12 +89,11 @@ export const NavbarTop = () => {
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">ETH-PMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Nav.Link as={Link} to="/" className="text-dark fw-semibold">Home</Nav.Link>
             <Button onClick={connectWallet}>{wallet.length > 0 ? `${wallet.slice(0,6)}...${wallet.slice(-6)}` : 'Connect Wallet'}</Button>
           </Nav>
         </Navbar.Collapse>

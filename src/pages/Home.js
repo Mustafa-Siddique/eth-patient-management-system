@@ -14,7 +14,7 @@ export const Home = () => {
           <Row xs={1} md={2} lg={4} className="g-4 w-100">
             <Col className="d-flex justify-content-center">
               <Link
-                to="/"
+                to="/superusers"
                 className="btn btn-primary fs-5 text-uppercase fw-semibold"
                 style={{ width: "200px" }}
               >
@@ -23,7 +23,7 @@ export const Home = () => {
             </Col>
             <Col className="d-flex justify-content-center">
               <Link
-                to="/"
+                to="/hospitals"
                 className="btn btn-primary fs-5 text-uppercase fw-semibold"
                 style={{ width: "200px" }}
               >
@@ -32,7 +32,7 @@ export const Home = () => {
             </Col>
             <Col className="d-flex justify-content-center">
               <Link
-                to="/"
+                to="/doctors"
                 className="btn btn-primary fs-5 text-uppercase fw-semibold"
                 style={{ width: "200px" }}
               >
@@ -41,7 +41,7 @@ export const Home = () => {
             </Col>
             <Col className="d-flex justify-content-center">
               <Link
-                to="/"
+                to="/patients"
                 className="btn btn-primary fs-5 text-uppercase fw-semibold"
                 style={{ width: "200px" }}
               >
