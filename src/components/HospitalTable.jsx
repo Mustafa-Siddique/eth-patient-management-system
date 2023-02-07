@@ -1,9 +1,10 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-export const HospitalTable = () => {
+export const HospitalTable = ({ hospitals }) => {
   return (
     <div>
+      {/* Mapping this table's rows with hospitals array */}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -11,33 +12,19 @@ export const HospitalTable = () => {
             <th>Hospital Name</th>
             <th>Address</th>
             <th>Contact</th>
+            <th>Wallet</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Hospital 1</td>
-            <td>Address</td>
-            <td>+9223 2314 1231</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Hospital 2</td>
-            <td>Address</td>
-            <td>+9223 2314 1231</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Hospital 3</td>
-            <td>Address</td>
-            <td>+9223 2314 1231</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Hospital 4</td>
-            <td>Address</td>
-            <td>+9223 2314 1231</td>
-          </tr>
+          {hospitals.map((hospital, index) => (
+            <tr key={index}>
+              <td>{index}</td>
+              <td>{hospital[2]}</td>
+              <td>{hospital[0]}</td>
+              <td>{hospital[1]}</td>
+              <td>{hospital[3]}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>

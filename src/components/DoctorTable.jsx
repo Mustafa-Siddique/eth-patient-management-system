@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 
-export const DoctorTable = () => {
+export const DoctorTable = ({doctors}) => {
   return (
     <div>
         <Table striped bordered hover>
@@ -9,35 +9,20 @@ export const DoctorTable = () => {
           <tr>
             <th>ID</th>
             <th>Doctor's Name</th>
-            <th>Hospital</th>
+            <th>Hospital ID</th>
             <th>Wallet Address</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Doctor 1</td>
-            <td>Hospital 2</td>
-            <td>0x573t34jg68ft8374gjg</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Doctor 1</td>
-            <td>Hospital 2</td>
-            <td>0x573t34jg68ft8374gjg</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Doctor 1</td>
-            <td>Hospital 2</td>
-            <td>0x573t34jg68ft8374gjg</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Doctor 1</td>
-            <td>Hospital 2</td>
-            <td>0x573t34jg68ft8374gjg</td>
-          </tr>
+          {/* Mapping doctors details with tr */}
+          {doctors.map((doctor, index) => (
+            <tr key={index}>
+              <td>{index}</td>
+              <td>{doctor[0]}</td>
+              <td>{doctor[1]}</td>
+              <td>{doctor[2]}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
