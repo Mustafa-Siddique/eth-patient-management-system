@@ -5,7 +5,7 @@ export const HospitalTable = ({ hospitals }) => {
   return (
     <div>
       {/* Mapping this table's rows with hospitals array */}
-      <Table striped bordered hover>
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>ID</th>

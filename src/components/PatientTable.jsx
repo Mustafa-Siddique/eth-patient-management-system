@@ -8,9 +8,6 @@ export const PatientTable = ({ patientArray }) => {
   const [modalShow, setModalShow] = useState(false);
   const [medicalRecord, setMedicalRecord] = useState([]);
 
-  // Check useEffect runs only once
-  let ranOnce = false;
-
   // run a loop when patientArray is updated and get medical record from patientArray[5]
   useEffect(() => {
     setMedicalRecord([]);
@@ -26,7 +23,7 @@ export const PatientTable = ({ patientArray }) => {
 
   return (
     <div>
-      <Table striped bordered hover>
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>ID</th>
@@ -65,7 +62,7 @@ export const PatientTable = ({ patientArray }) => {
       {/* Medical History mapped with data of patient[5] */}
       <div className="mt-5">
         <h3>Medical History</h3>
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
           <thead>
             <tr>
               <th>Diagnosis</th>
