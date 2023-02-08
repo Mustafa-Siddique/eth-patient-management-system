@@ -53,26 +53,17 @@ export const PatientTable = ({ patientArray }) => {
                   Add Medical Record
                 </Button>
                 <MedicalRecordModal
+                  patientId={patient[4]}
                   show={modalShow}
                   onHide={() => setModalShow(false)}
                 />
               </td>
             </tr>
           ))}
-          {/* <tr>
-            <td>1</td>
-            <td>Patient 1</td>
-            <td>Hospital 2</td>
-            <td>0x573t34jg68ft8374gjg</td>
-            <td>
-              <Button onClick={() => setModalShow(true)}>Add Medical Record</Button>
-              <MedicalRecordModal show={modalShow} onHide={() => setModalShow(false)} />
-            </td>
-          </tr> */}
         </tbody>
       </Table>
       {/* Medical History mapped with data of patient[5] */}
-      <div>
+      <div className="mt-5">
         <h3>Medical History</h3>
         <Table striped bordered hover>
           <thead>

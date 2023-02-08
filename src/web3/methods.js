@@ -218,3 +218,34 @@ export const getMedicalRecord = async (id) => {
     console.error(err);
   }
 }
+
+// Get Patient Ids from contract using wallet
+export const getPatientIds = async (wallet) => {
+  try {
+    const contract = await getPMSContract();
+    const accounts = await web3.eth.getAccounts();
+    const patientIds = await contract.methods
+      .patientIdsForAddresses(wallet)
+      .call({ from: accounts[0] });
+    return patientIds;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Add Medical Record to contract
+export const addMedicalRecord = async (patientId, diagnosis, prescription, notes) => {
+  try {
+    const contract = await getPMSContract();
+    const accounts = await web3.eth.getAccounts();
+    const diagnosisHex = web3.utils.utf8ToHex(diagnosis);
+    const prescriptionHex = web3.utils.utf8ToHex(prescription);
+    const notesHex = web3.utils.utf8ToHex(notes);
+    const res = await contract.methods
+      .addMedicalRecord(patientId, diagnosisHex, prescriptionHex, notesHex)
+      .send({ from: accounts[0] });
+    return res;
+  } catch (err) {
+    console.error(err);
+  }
+}
