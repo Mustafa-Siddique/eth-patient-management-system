@@ -14,7 +14,8 @@ export const getPMSContract = async () => {
   try {
     const contract = await getContracts(
       contractABI,
-      "0xAe95fdCd46A06eBE0BC8a4D075061db842E71ad2"
+      "0x52241B0AFD92E0aD050136c15c1DBD13229EC054"
+      // "0xAe95fdCd46A06eBE0BC8a4D075061db842E71ad2"
     );
     return contract;
   } catch (err) {

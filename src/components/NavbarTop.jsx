@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Web3 from "web3";
 import { addWallet, selectWallet } from "../features/walletSlice";
+import logo from '../logo.jpg'
 
 export const NavbarTop = () => {
   const [signAdd, setSignAdd] = useState("");
@@ -89,7 +90,10 @@ export const NavbarTop = () => {
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand as={Link} to="/">ETH-PMS</Navbar.Brand>
+        {/* Navbar Logo */}
+        <Navbar.Brand as={Link} to="/">
+          <img src={logo} alt="" style={{maxWidth:"80px"}} className="rounded"/>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

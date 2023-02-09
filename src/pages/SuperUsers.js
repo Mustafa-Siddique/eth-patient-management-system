@@ -56,7 +56,7 @@ export const SuperUsers = () => {
           onClick={() => setModalShow(true)}
           className="ms-auto mb-3 d-block"
           // if usertype is not equal to 0, then disable the button
-          disabled={userType !== "0"}
+          disabled={userType !== "0" || userType === "1" || userType === "2"}
         >
           Add Hospital
         </Button>
