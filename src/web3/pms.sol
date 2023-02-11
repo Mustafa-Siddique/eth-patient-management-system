@@ -3,6 +3,7 @@ pragma solidity ^0.8.15;
 
 // Enum for the different user types in the PMS
 enum UserType {
+    UNREGISTERED,
     SUPERUSER,
     SUPERUSER2,
     SUPERUSER3,
@@ -56,7 +57,7 @@ contract PatientManagementSystem {
     mapping(uint256 => Patient) patients;
 
     // Mapping of medicalRecordIds to medicalRecords
-    mapping(uint256 => MedicalRecord) medicalRecords;
+    mapping (uint256 => MedicalRecord) medicalRecords;
 
     // Array for storing hospital IDs
     uint256[] public hospitalIds;
@@ -75,7 +76,7 @@ contract PatientManagementSystem {
 
     // Mapping of Ethereum addresses to doctor IDs
     mapping(address => uint256) public doctorIdsForAddresses;
-
+    
     // Mapping of Ethereum addresses to patient IDs
     mapping(address => uint256) public patientIdsForAddresses;
 
@@ -86,11 +87,7 @@ contract PatientManagementSystem {
     uint256 public medicalIdCounter;
 
     // Event for logging new hospital registration
-    event NewHospitalRegistered(
-        uint256 hospitalId,
-        bytes32 hospitalName,
-        address hospitalWallet
-    );
+    event NewHospitalRegistered(uint256 hospitalId, bytes32 hospitalName, address hospitalWallet);
 
     // Event for logging new doctor registration
     event NewDoctorRegistered(
@@ -109,31 +106,26 @@ contract PatientManagementSystem {
 
     // Constructor function for initializing the contract
     constructor() {
-        // Add the contract owner as the initial hospital
-        addHospital(
-            "Hospital 1",
-            "Address 1",
-            "Contact 1",
-            0xdD870fA1b7C4700F2BD7f44238821C26f7392148
-        );
-
         // Set the contract owner as the initial superuser
         userTypes[msg.sender] = UserType.SUPERUSER;
+        
+        // Add the contract owner as the initial hospital
+        addHospital("Hospital 1", "Address 1", "Contact 1", 0xdD870fA1b7C4700F2BD7f44238821C26f7392148);
         // hospitalIdsForAddresses[msg.sender] = 0;
     }
-
+    
     // Function to register a new hospital
     function addHospital(
-        bytes32 hospitalName,
-        bytes32 hospitalAddress,
-        bytes32 hospitalContact,
-        address hospitalWallet
+    bytes32 hospitalName,
+    bytes32 hospitalAddress,
+    bytes32 hospitalContact,
+    address hospitalWallet
     ) public {
         // Only superusers are allowed to register hospitals
         require(
             userTypes[msg.sender] == UserType.SUPERUSER || // current superuser
-                userTypes[msg.sender] == UserType.SUPERUSER2 || // additional superuser
-                userTypes[msg.sender] == UserType.SUPERUSER3, // additional superuser
+            userTypes[msg.sender] == UserType.SUPERUSER2 || // additional superuser
+            userTypes[msg.sender] == UserType.SUPERUSER3,   // additional superuser
             "Only superusers are allowed to register hospitals."
         );
 
@@ -161,15 +153,11 @@ contract PatientManagementSystem {
     }
 
     // Function to register a new doctor
-    function addDoctor(
-        bytes32 doctorName,
-        uint256 hospitalId,
-        address wallet
-    ) public {
+    function addDoctor(bytes32 doctorName, uint256 hospitalId, address wallet) public {
         // Only hospitals are allowed to register doctors
         require(
             userTypes[msg.sender] == UserType.HOSPITAL &&
-                hospitalIdsForAddresses[msg.sender] == hospitalId,
+            hospitalIdsForAddresses[msg.sender] == hospitalId,
             "Only hospitals are allowed to register doctors."
         );
 
@@ -190,7 +178,7 @@ contract PatientManagementSystem {
         // Emit the NewDoctorRegistered event
         emit NewDoctorRegistered(doctorId, doctorName, hospitalId, wallet);
     }
-
+    
     // Function to register a new patient
     function addPatient(
         bytes32 _name,
@@ -201,11 +189,11 @@ contract PatientManagementSystem {
         bytes32 _diagnosis,
         bytes32 _prescription,
         bytes32 _notes
-    ) public {
+        ) public {
         // Only doctors are allowed to register patients
         require(
             userTypes[msg.sender] == UserType.DOCTOR &&
-                msg.sender == doctors[_doctorId].wallet,
+            msg.sender == doctors[_doctorId].wallet,
             "Only doctors are allowed to register patients."
         );
 
@@ -235,7 +223,7 @@ contract PatientManagementSystem {
         // Emit the NewPatientRegistered event
         emit NewPatientRegistered(patientId, _patientWallet, _doctorId);
     }
-
+    
     // Function to add a new medical record
     function addMedicalRecord(
         uint256 patientId,
@@ -246,7 +234,7 @@ contract PatientManagementSystem {
         // Only hospitals and doctors are allowed to add medical records
         require(
             userTypes[msg.sender] == UserType.HOSPITAL ||
-                userTypes[msg.sender] == UserType.DOCTOR,
+            userTypes[msg.sender] == UserType.DOCTOR ,
             "Only hospitals and doctors are allowed to add medical records."
         );
 
@@ -265,7 +253,7 @@ contract PatientManagementSystem {
         Patient storage patient = patients[patientId];
         patient.medicalRecordIds.push(medicalRecordId);
     }
-
+    
     // Set the SUPERUSER2 or SUPERUSER3 constants for a particular address
     function setSuperuser(address _address, UserType _userType) public {
         // Only the current superuser is allowed to set other superusers
@@ -294,16 +282,12 @@ contract PatientManagementSystem {
     }
 
     // Function to get the information for a hospital
-    function getHospitalInfo(uint256 hospitalId)
-        public
-        view
-        returns (
-            bytes32 hospitalName,
-            bytes32 hospitalAddress,
-            bytes32 hospitalContact,
-            address hospitalWallet
-        )
-    {
+    function getHospitalInfo(uint256 hospitalId) public view returns (
+        bytes32 hospitalName,
+        bytes32 hospitalAddress,
+        bytes32 hospitalContact,
+        address hospitalWallet
+    ) {
         return (
             hospitals[hospitalId].name,
             hospitals[hospitalId]._address,
@@ -313,15 +297,11 @@ contract PatientManagementSystem {
     }
 
     // Function to get the information for a doctor
-    function getDoctorInfo(uint256 doctorId)
-        public
-        view
-        returns (
-            bytes32 doctorName,
-            uint256 hospitalId,
-            address _wallet
-        )
-    {
+    function getDoctorInfo(uint256 doctorId) public view returns (
+        bytes32 doctorName,
+        uint256 hospitalId,
+        address _wallet
+    ) {
         return (
             doctors[doctorId].name,
             doctors[doctorId].hospitalId,
@@ -330,22 +310,18 @@ contract PatientManagementSystem {
     }
 
     // Function to get the information for a patient
-    function getPatientInfo(address patientWallet)
-        public
-        view
-        returns (
-            bytes32 patientName,
-            uint256 age,
-            bytes32 gender,
-            uint256 doctorId,
-            address wallet,
-            uint256[] memory _medicalIds
-        )
-    {
+    function getPatientInfo(address patientWallet) public view returns (
+        bytes32 patientName,
+        uint256 age,
+        bytes32 gender,
+        uint256 doctorId,
+        address wallet,
+        uint256[] memory _medicalIds
+    ) {
         require(
             userTypes[msg.sender] == UserType.HOSPITAL ||
-                userTypes[msg.sender] == UserType.DOCTOR ||
-                userTypes[msg.sender] == UserType.PATIENT,
+            userTypes[msg.sender] == UserType.DOCTOR ||
+            userTypes[msg.sender] == UserType.PATIENT,
             "Only Doctors, Hospitals & Patient themselves can access patients data."
         );
         uint256 patientId = patientIdsForAddresses[patientWallet];
@@ -360,16 +336,12 @@ contract PatientManagementSystem {
     }
 
     // Function to get the information for a medical record
-    function getMedicalRecordInfo(uint256 medicalRecordId)
-        public
-        view
-        returns (
-            bytes32 diagnosis,
-            bytes32 prescription,
-            bytes32 notes,
-            uint256 timestamp
-        )
-    {
+    function getMedicalRecordInfo(uint256 medicalRecordId) public view returns (
+        bytes32 diagnosis,
+        bytes32 prescription,
+        bytes32 notes,
+        uint256 timestamp
+    ) {
         return (
             medicalRecords[medicalRecordId].diagnosis,
             medicalRecords[medicalRecordId].prescription,
