@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { NavbarTop } from "../components/NavbarTop";
+import { UserChecker } from "../components/UserChecker";
 
 export const Home = () => {
   return (
@@ -49,6 +50,7 @@ export const Home = () => {
               </Link>
             </Col>
           </Row>
+        <UserChecker/>
         </div>
       </Container>
       <Footer />

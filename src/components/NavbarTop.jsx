@@ -98,7 +98,9 @@ export const NavbarTop = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/" className="text-dark fw-semibold">Home</Nav.Link>
-            <Button onClick={connectWallet}>{wallet.length > 0 ? `${wallet.slice(0,6)}...${wallet.slice(-6)}` : 'Connect Wallet'}</Button>
+            <Button onClick={connectWallet}
+            disabled={wallet.length > 0 ? true : false}
+            >{wallet.length > 0 ? `${wallet.slice(0,6)}...${wallet.slice(-6)}` : 'Connect Wallet'}</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
