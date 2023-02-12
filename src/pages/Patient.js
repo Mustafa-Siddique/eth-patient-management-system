@@ -3,11 +3,13 @@ import { Button, Container, Form, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Footer } from "../components/Footer";
 import { NavbarTop } from "../components/NavbarTop";
-import { getMedicalRecord, getPatientInfo } from "../web3/methods";
+import { getMedicalRecord, getPatientInfo, getUserType } from "../web3/methods";
 
 export const Patient = () => {
   // Wallet from redux store
   const wallet = useSelector((state) => state.wallet.value);
+  // User type state
+  const [userType, setUserType] = useState(null);
 
   // State for patient info
   const [patient, setPatient] = useState([]);
@@ -35,6 +37,17 @@ export const Patient = () => {
     _getMedicalRecord(patient);
   }, [patient]);
 
+  // Get user type on page load
+  useEffect(() => {
+    _getUserType();
+  }, []);
+
+  // Get user type
+  const _getUserType = async () => {
+    const userType = await getUserType(wallet);
+    setUserType(userType);
+  };
+
   return (
     <div>
       <NavbarTop />
@@ -51,10 +64,12 @@ export const Patient = () => {
             <Form.Control disabled type="text" required value={wallet} />
             <Form.Text className="text-muted">
               You can view your own details.{" "}
-              {wallet.length > 0 ? " ✅" : "Connect Your Wallet ❌"}
+              {wallet.length > 0 ? "" : "Connect Your Wallet ❌"}{userType === "6" ? " ✅" : " You are not a patient ❌"}
             </Form.Text>
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={userType !== "6"}>
+            Submit
+          </Button>
         </Form>
         <Table
           striped

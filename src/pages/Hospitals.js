@@ -59,8 +59,8 @@ export const Hospitals = () => {
         <Button
           className="ms-auto d-block mb-3"
           onClick={() => setModalShow(true)}
-          // if usertype is not equal to 3, then disable the button
-          disabled={userType !== "3"}
+          // if usertype is not equal to 4, then disable the button
+          disabled={userType !== "4"}
         >
           Add Doctor
         </Button>

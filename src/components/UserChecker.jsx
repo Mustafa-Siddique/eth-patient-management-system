@@ -26,7 +26,7 @@ export const UserChecker = () => {
       <h2>User Wallet Checker</h2>
       <p>Check the user role using Wallet Address</p>
       <Form
-        className="mb-5"
+        className="mb-3"
         style={{ maxWidth: "700px" }}
         onSubmit={handleSubmit}
       >
@@ -47,17 +47,19 @@ export const UserChecker = () => {
           Submit
         </Button>
       </Form>
-      <div style={{ maxWidth: "700px" }} className="d-block mx-auto">
+      <div className="d-block mx-auto">
         {/* If enumId is 1/2/3 prompt user "Selected user is Superuser", if enumId is 4 show Hospital, or if enumId is 5 show Doctor */}
-        {enumId === "0" || enumId === "1" || enumId === "2" ? (
-          <p className="mt-3 text-success">Selected user is Superuser</p>
-        ) : enumId === "3" ? (
-          <p className="mt-3 text-success">Selected user is Hospital</p>
+        {enumId === "1" || enumId === "2" || enumId === "3" ? (
+          <p className="text-success">Selected user is Superuser</p>
         ) : enumId === "4" ? (
-          <p className="mt-3 text-success">Selected user is Doctor</p>
+          <p className="text-success">Selected user is Hospital</p>
         ) : enumId === "5" ? (
-          <p className="mt-3 text-success">Selected user is Patient</p>
-        ) : null}
+          <p className="text-success">Selected user is Doctor</p>
+        ) : enumId === "6" ? (
+          <p className="text-success">Selected user is Patient</p>
+        ) : (
+          <p className="text-danger">Selected user is Unregistered!</p>
+        )}
       </div>
     </div>
   );
