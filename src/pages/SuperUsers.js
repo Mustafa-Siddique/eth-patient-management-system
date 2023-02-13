@@ -47,6 +47,8 @@ export const SuperUsers = () => {
     setUserType(userType);
   };
 
+  // console.log(userType !== "1" || userType === "2" || userType === "3", userType)
+
   return (
     <div>
       <NavbarTop />
@@ -56,7 +58,7 @@ export const SuperUsers = () => {
           onClick={() => setModalShow(true)}
           className="ms-auto mb-3 d-block"
           // if usertype is not equal to 1/2/3, then disable the button
-          disabled={userType !== "1" || userType === "2" || userType === "3"}
+          disabled={userType === "1" ? false : userType === "2" ? false : userType === "3" ? false : true}
         >
           Add Hospital
         </Button>
